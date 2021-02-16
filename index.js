@@ -20,7 +20,7 @@ app.use(express.json());
 connection.connect().then((client) => {
   const db = client.db("test");
   const quotesCollection = db.collection("quotes");
-  app.post("/quotes", (req, res) => {
+  app.post("/api/quote", (req, res) => {
     let payload;
     const body = req.body;
     console.log(body);
@@ -36,7 +36,7 @@ connection.connect().then((client) => {
     });
   });
 
-  app.get("/quotes", (req, res) => {
+  app.get("/api/quotes", (req, res) => {
     quotesCollection
       .find()
       .toArray()
