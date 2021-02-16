@@ -27,7 +27,7 @@ connection.connect().then((client) => {
     if (body.quote && body.class) {
       quotesCollection.insertOne(req.body).then((result) => {
         payload = result;
-        res.send(payload.ops[0]);
+        res.json(payload.ops[0]);
       });
       return;
     }
@@ -43,7 +43,7 @@ connection.connect().then((client) => {
       .find()
       .toArray()
       .then((results) => {
-        res.status(200).send({
+        res.status(200).json({
           count: results.length,
           quotes: results,
         });
