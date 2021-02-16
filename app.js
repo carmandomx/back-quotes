@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 
-app.listen(process.env.PORT || 8080, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log("Mi server funciona");
 });
 
