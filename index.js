@@ -11,15 +11,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log();
+app.listen(process.env.PORT || 8080, () => {
+  console.log("Mi server funciona");
 });
 
 app.use(express.json());
-
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public", "index.html"));
-});
 
 connection.connect().then((client) => {
   const db = client.db("test");
@@ -41,8 +37,6 @@ connection.connect().then((client) => {
   });
 
   app.get("/quotes", (req, res) => {
-    let payload;
-
     quotesCollection
       .find()
       .toArray()
@@ -55,6 +49,6 @@ connection.connect().then((client) => {
   });
 });
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
