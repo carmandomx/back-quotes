@@ -17,7 +17,7 @@ app.listen(process.env.PORT || 8080, () => {
 
 app.use(express.json());
 
-app.use(express.static(__dirname + "public"));
+app.use(express.static(`${__dirname}public`));
 
 connection.connect().then((client) => {
   const db = client.db("test");
