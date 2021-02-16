@@ -17,9 +17,15 @@ app.listen(process.env.PORT || 8080, () => {
 
 app.use(express.json());
 
+app.use(express.static(__dirname + "public"));
+
 connection.connect().then((client) => {
   const db = client.db("test");
   const quotesCollection = db.collection("quotes");
+  app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/public/index.html");
+  });
+
   app.post("/api/quote", (req, res) => {
     let payload;
     const body = req.body;
@@ -47,8 +53,4 @@ connection.connect().then((client) => {
         });
       });
   });
-});
-
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
 });
