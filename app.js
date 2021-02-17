@@ -1,8 +1,10 @@
 import express from "express";
 import db from "mongoose";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+
 const { Schema } = db;
 const uri =
   "mongodb+srv://prof-quotes:1234@cluster0.7metr.mongodb.net/test?retryWrites=true&w=majority";
@@ -14,6 +16,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 app.use(cors());
+app.set("trust proxy", 1);
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+
+app.use("/api/", limiter);
 const quoteSchema = new Schema({
   quote: String,
   class: String,
