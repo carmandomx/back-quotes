@@ -1,5 +1,6 @@
 import express from "express";
 import db from "mongoose";
+import cors from "cors";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 const { Schema } = db;
@@ -12,6 +13,7 @@ const connection = db.connect(uri, {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
+app.use(cors());
 const quoteSchema = new Schema({
   quote: String,
   class: String,
